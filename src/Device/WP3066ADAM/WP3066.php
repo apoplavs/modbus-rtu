@@ -59,15 +59,4 @@ class WP3066 implements WP3066Interface
     {
         return $this->temperature8;
     }
-
-    public function toOpenClosed(int $val): string
-    {
-        return self::OPEN_CLOSED[$val];
-    }
-
-    public function toNcMotion(int $val): string
-    {
-        return self::NC_MOTION[$val];
-    }
-
 }

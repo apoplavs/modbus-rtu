@@ -9,46 +9,44 @@ interface WP8026Interface
     public const OPEN_CLOSED = [
         0 => 'open',
         1 => 'closed',
+        2 => 'undefined',
     ];
 
     public const NC_MOTION = [
         0 => 'on',
         1 => 'off',
+        2 => 'undefined',
     ];
 
-    public function getDI1(): int;
+    public function getDI1(WP8026ValueType $type = WP8026ValueType::Default): int|string;
 
-    public function getDI2(): int;
+    public function getDI2(WP8026ValueType $type = WP8026ValueType::Default): int|string;
 
-    public function getDI3(): int;
+    public function getDI3(WP8026ValueType $type = WP8026ValueType::Default): int|string;
 
-    public function getDI4(): int;
+    public function getDI4(WP8026ValueType $type = WP8026ValueType::Default): int|string;
 
-    public function getDI5(): int;
+    public function getDI5(WP8026ValueType $type = WP8026ValueType::Default): int|string;
 
-    public function getDI6(): int;
+    public function getDI6(WP8026ValueType $type = WP8026ValueType::Default): int|string;
 
-    public function getDI7(): int;
+    public function getDI7(WP8026ValueType $type = WP8026ValueType::Default): int|string;
 
-    public function getDI8(): int;
+    public function getDI8(WP8026ValueType $type = WP8026ValueType::Default): int|string;
 
-    public function getDI9(): int;
+    public function getDI9(WP8026ValueType $type = WP8026ValueType::Default): int|string;
 
-    public function getDI10(): int;
+    public function getDI10(WP8026ValueType $type = WP8026ValueType::Default): int|string;
 
-    public function getDI11(): int;
+    public function getDI11(WP8026ValueType $type = WP8026ValueType::Default): int|string;
 
-    public function getDI12(): int;
+    public function getDI12(WP8026ValueType $type = WP8026ValueType::Default): int|string;
 
-    public function getDI13(): int;
+    public function getDI13(WP8026ValueType $type = WP8026ValueType::Default): int|string;
 
-    public function getDI14(): int;
+    public function getDI14(WP8026ValueType $type = WP8026ValueType::Default): int|string;
 
-    public function getDI15(): int;
+    public function getDI15(WP8026ValueType $type = WP8026ValueType::Default): int|string;
 
-    public function getDI16(): int;
-
-    public function toOpenClosed(int $val): string;
-
-    public function toNcMotion(int $val): string;
+    public function getDI16(WP8026ValueType $type = WP8026ValueType::Default): int|string;
 }

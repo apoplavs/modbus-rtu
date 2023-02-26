@@ -24,7 +24,8 @@ class MQTTClient
         } catch (ProtocolNotSupportedException|ConfigurationInvalidException $e) {
             $this->logger->error($e->getMessage(), $e->getTrace());
         } catch (ConnectingToBrokerFailedException $e) {
-            $this->logger->error($e->getMessage(), $e->getConnectionErrorMessage());
+            $this->logger->error($e->getMessage(), (array)$e->getConnectionErrorMessage());
+            exit(1);
         }
     }
 

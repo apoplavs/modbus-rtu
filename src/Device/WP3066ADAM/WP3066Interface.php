@@ -20,7 +20,4 @@ interface WP3066Interface
 
     public function getTemperature8(): ?float;
 
-    public function toOpenClosed(int $val): string;
-
-    public function toNcMotion(int $val): string;
 }
