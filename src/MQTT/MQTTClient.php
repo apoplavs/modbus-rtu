@@ -15,17 +15,19 @@ class MQTTClient
 {
     private Client $client;
 
+    private ConnectionSettings $connectionSetting;
+
     public function __construct(private readonly LoggerInterface $logger)
     {
-        $mqttConnectionSettings = (new ConnectionSettings())->setUsername($_ENV['MQTT_USERNAME'])->setPassword($_ENV['MQTT_PASSWORD']);
+        $this->connectionSetting = (new ConnectionSettings())
+            ->setUsername($_ENV['MQTT_USERNAME'])
+            ->setPassword($_ENV['MQTT_PASSWORD'])
+            ->setReconnectAutomatically(true);
         try {
             $this->client = new Client($_ENV['MQTT_SERVER_URL'], (int)$_ENV['MQTT_PORT'], $_ENV['MQTT_CLIENT_ID']);
-            $this->client->connect($mqttConnectionSettings);
-        } catch (ProtocolNotSupportedException|ConfigurationInvalidException $e) {
+            $this->connect();
+        } catch (ProtocolNotSupportedException $e) {
             $this->logger->error($e->getMessage(), $e->getTrace());
-        } catch (ConnectingToBrokerFailedException $e) {
-            $this->logger->error($e->getMessage(), (array)$e->getConnectionErrorMessage());
-            exit(1);
         }
     }
 
@@ -45,6 +47,18 @@ class MQTTClient
             $this->client->disconnect();
         } catch (DataTransferException $e) {
             $this->logger->warning('MQTT DataTransferException ', $e->getTrace());
+        }
+    }
+
+    private function connect(): void
+    {
+        try {
+            $this->client->connect($this->connectionSetting);
+        } catch (ConfigurationInvalidException $e) {
+            $this->logger->error($e->getMessage(), $e->getTrace());
+        } catch (ConnectingToBrokerFailedException $e) {
+            $this->logger->error($e->getMessage(), (array)$e->getConnectionErrorMessage());
+            sleep(10);
         }
     }
 
