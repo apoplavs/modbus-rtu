@@ -52,13 +52,17 @@ class MQTTClient
 
     private function connect(): void
     {
-        try {
-            $this->client->connect($this->connectionSetting);
-        } catch (ConfigurationInvalidException $e) {
-            $this->logger->error($e->getMessage(), $e->getTrace());
-        } catch (ConnectingToBrokerFailedException $e) {
-            $this->logger->error($e->getMessage(), (array)$e->getConnectionErrorMessage());
-            sleep(10);
+        for ($i = 0; $i < 5; $i++) {
+            try {
+                $this->client->connect($this->connectionSetting);
+                return;
+            } catch (ConfigurationInvalidException $e) {
+                $this->logger->error($e->getMessage(), $e->getTrace());
+                sleep(10);
+            } catch (ConnectingToBrokerFailedException $e) {
+                $this->logger->error($e->getMessage(), (array)$e->getConnectionErrorMessage());
+                sleep(10);
+            }
         }
     }
 

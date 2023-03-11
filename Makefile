@@ -35,6 +35,9 @@ build-major: next-tag-major build
 
 .PHONY: production
 production:
+ifneq ("$(shell docker ps | grep $(IMAGE_NAME))","")
+	$(error Found running containers)
+endif
 ifeq ("$(shell docker images $(IMAGE_NAME):$(IMAGE_TAG) | grep $(IMAGE_NAME))","")
 	docker build --platform linux/arm64/v8 -t $(IMAGE_NAME):$(IMAGE_TAG) .
 else
