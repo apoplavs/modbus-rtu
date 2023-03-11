@@ -1,0 +1,11 @@
+.env.example
+README.md
+.gitignore
+.dockerignore
+Makefile
+version
+Dockerfile
+vendor
+log
+.git
+.idea

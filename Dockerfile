@@ -1,13 +1,18 @@
-FROM apoplavs/home-automation:latest
+FROM apoplavs/home-automation:0.9
 
-# Встановлюємо Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+# Створюємо основну папку
+RUN mkdir -p /app/modbus_rtu
+
+# Створюємо папку для логів
+RUN mkdir -p /app/modbus_rtu/log
 
 # Копіюємо файли проекту до контейнера
-COPY . /home/mqtt_client
+COPY . /app/modbus_rtu
+
+# Встановлюємо робочу папку
+WORKDIR /app/modbus_rtu
 
 # Встановлюємо залежності проекту через Composer
-WORKDIR /home/mqtt_client
 RUN composer install --no-interaction --prefer-dist --no-dev
 
 # Запускаємо команду при старті контейнера
