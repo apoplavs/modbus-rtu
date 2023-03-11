@@ -1,4 +1,4 @@
-FROM apoplavs/home-automation:0.9
+FROM apoplavs/home-automation:1.0
 
 # Створюємо основну папку
 RUN mkdir -p /app/modbus_rtu

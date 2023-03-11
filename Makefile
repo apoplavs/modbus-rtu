@@ -40,7 +40,6 @@ ifeq ("$(shell docker images $(IMAGE_NAME):$(IMAGE_TAG) | grep $(IMAGE_NAME))","
 else
 	$(info Image with current version already exists)
 endif
-	docker save $(IMAGE_NAME):$(IMAGE_TAG) | ssh -C $(PROD_HOST) docker load
 	docker run -d --device=/dev/ttyUSB0 --restart always $(IMAGE_NAME):$(IMAGE_TAG)
 
 .PHONY: next-tag-major
